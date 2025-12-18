@@ -1,3 +1,5 @@
+import Pet from '../../models/petModel';
+
 export const config = {
     name : "CreatePet",
     type : "api",
@@ -18,6 +20,6 @@ export const handler = async (req) => {
         return {status:400, body:{message:"Invalid payload"}}
     }
 
-    const newPet    = petSchema.
-
+    const newPet    = await Pet.create({name,species:b.species,age:b.age})
+    logger.info(newPet);
 }

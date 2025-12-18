@@ -7,4 +7,5 @@ const petSchema = new Schema({
     age : {type:Number,required:true}
 });
 
-module.exports = mongoose.model('testPets',petSchema);
+const Pet = mongoose.model('testPets',petSchema);
+export default Pet;
