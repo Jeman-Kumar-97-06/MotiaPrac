@@ -6,11 +6,18 @@ export const config = {
     emits : []
 };
 
+
+
 export const handler = async (req) => {
     const b         = req.body || {};
     const name      = typeof b.name ==='string' && b.name.trim();
     const speciesOk = ['dog','cat','bird','other'].includes(b.species);
     const ageOk     = Number.isFinite(b.ageMonths);
 
-    if (!name || )
+    if (!name || !speciesOk || !ageOk){
+        return {status:400, body:{message:"Invalid payload"}}
+    }
+
+    const newPet    = petSchema.
+
 }
