@@ -20,6 +20,6 @@ export const handler = async (req) => {
         return {status:400, body:{message:"Invalid payload"}}
     }
 
-    const newPet    = await Pet.create({name,species:b.species,age:b.age})
+    const newPet    = await Pet.create({name,species:b.species,age:b.ageMonths})
     logger.info(newPet);
 }
