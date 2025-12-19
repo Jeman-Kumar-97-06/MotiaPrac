@@ -1,4 +1,5 @@
 import Pet from '../../models/petModel';
+import {getDb} from '../db/mongo.js';
 
 export const config = {
     name : "CreatePet",
@@ -10,7 +11,7 @@ export const config = {
 
 
 
-export const handler = async (req) => {
+export const handler = async (req,{logger}) => {
     const b         = req.body || {};
     const name      = typeof b.name ==='string' && b.name.trim();
     const speciesOk = ['dog','cat','bird','other'].includes(b.species);
@@ -20,6 +21,15 @@ export const handler = async (req) => {
         return {status:400, body:{message:"Invalid payload"}}
     }
 
-    const newPet    = await Pet.create({name,species:b.species,age:b.ageMonths})
-    logger.info(newPet);
+    const db = await getDb();
+
+    // const newPet    = await Pet.create({name,species:b.species,age:b.ageMonths})
+    const newPet = await db.collection("messages").insertOne({
+        name:b.name,
+        species:b.species,
+        age:b.ageMonths
+    });
+    
+
+    logger.info("Result",newPet)
 }
