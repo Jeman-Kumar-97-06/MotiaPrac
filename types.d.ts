@@ -14,6 +14,7 @@ declare module 'motia' {
   interface Handlers {
     'SendMessage': ApiRouteHandler<Record<string, unknown>, unknown, { topic: 'message.sent'; data: { body: string } }>
     'ProcessMessage': EventHandler<{ body: string }, never>
+    'GetPets': ApiRouteHandler<Record<string, unknown>, unknown, never>
     'CreatePet': ApiRouteHandler<Record<string, unknown>, unknown, never>
     'ProcessGreeting': EventHandler<{ timestamp: string; appName: string; greetingPrefix: string; requestId: string }, never>
     'HelloAPI': ApiRouteHandler<Record<string, unknown>, ApiResponse<200, { message: string; status: string; appName: string }>, { topic: 'process-greeting'; data: { timestamp: string; appName: string; greetingPrefix: string; requestId: string } }>

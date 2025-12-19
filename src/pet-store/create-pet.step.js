@@ -6,12 +6,10 @@ export const config = {
     type : "api",
     path : "/pets",
     method : "POST",
-    emits : []
+    emits : ['js.feeding.reminder']
 };
 
-
-
-export const handler = async (req,{logger}) => {
+export const handler = async (req,{logger,emit}) => {
     const b         = req.body || {};
     const name      = typeof b.name ==='string' && b.name.trim();
     const speciesOk = ['dog','cat','bird','other'].includes(b.species);
@@ -30,6 +28,17 @@ export const handler = async (req,{logger}) => {
         age:b.ageMonths
     });
     
-
     logger.info("Result",newPet)
+
+    if (emit){
+        await emit({ //Even t is emitted with data : 
+            topic: 'js.feeding.reminder',
+            data : {
+                petId:newPet.id,
+                enqueuedAt:Date.now()
+            }
+        })
+    }
+
+    return {status:201,body:newPet};
 }
